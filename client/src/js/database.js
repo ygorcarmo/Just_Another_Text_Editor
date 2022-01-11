@@ -14,7 +14,7 @@ const initdb = async () =>
 
 // TODO: Add logic to a method that accepts some content and adds it to the database
 // Export a function we will use to PUt to the database.
-export const putDb = async (id, content) => {
+export const putDb = async (content) => {
   console.log('Put to the database');
 
   // Create a connection to the database and version we want to use.
@@ -25,9 +25,10 @@ export const putDb = async (id, content) => {
 
   // Open up the desired object store.
   const store = tx.objectStore('jate');
+  console.log(content);
 
   // Use the .add() method on the store and pass in the content.
-  const request = store.add({value: content});
+  const request = store.put({id:1, value: content});
 
   // Get confirmation of the request.
   const result = await request;
@@ -55,7 +56,7 @@ export const getDb = async () => {
   // Get confirmation of the request.
   const result = await request;
   console.log('result.value', result);
-  return result;
+  return result?.value;
 };
 
 initdb();
